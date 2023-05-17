@@ -1,0 +1,45 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                    http://www.springframework.org/schema/security 
+                    http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+	<beans:bean id="userDetailsManager" class="com.hyxc.moikiitos.services.UserDetailsServiceImpl">
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+	
+	<beans:bean id="encoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
+
+	<http pattern="/static/**" security="none" />
+
+	<http use-expressions="true">
+	    <intercept-url pattern="/index.jsp" access="permitAll" />
+	    <intercept-url pattern="/login" access="permitAll" />
+	    <intercept-url pattern="/register" access="permitAll" />
+	    <intercept-url pattern="/user" access="permitAll" />
+	    <intercept-url pattern="/favicon.ico" access="permitAll" />
+	    <intercept-url pattern="/error" access="permitAll" />
+	    <intercept-url pattern="/errorNotFound" access="permitAll" />
+	    <intercept-url pattern="/" access="isAuthenticated()" />
+	    <intercept-url pattern="/livePosts" access="isAuthenticated()" />
+	    <intercept-url pattern="/posts" access="isAuthenticated()" />
+	    <intercept-url pattern="/findUser" access="isAuthenticated()" />
+	    <intercept-url pattern="/follow" access="isAuthenticated()" />
+	    <intercept-url pattern="/following" access="isAuthenticated()" />
+	    <intercept-url pattern="/followers" access="isAuthenticated()" />
+	    <intercept-url pattern="/unfollow" access="isAuthenticated()" />
+	    <intercept-url pattern="/doFollow" access="isAuthenticated()" />
+	    <intercept-url pattern="/**" access="denyAll" />
+	    <form-login login-page="/login"/>
+	    <logout />
+	</http>
+  
+	<authentication-manager>
+        <authentication-provider user-service-ref="userDetailsManager">
+        	<password-encoder ref="encoder" />
+        </authentication-provider>
+    </authentication-manager>
+    
+</beans:beans>

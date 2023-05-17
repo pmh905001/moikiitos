@@ -1,0 +1,26 @@
+.currentPage {
+	color: black;
+}
+
+.postHeader {
+	width: 100%;
+}
+
+.age {
+	color: grey;
+	font-size: 0.75em;
+	text-align: right;
+	float: right;
+}
+
+.message {
+	font-size: 1.25em;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-left: 20px;
+}
+
+#pagingPanel {
+	
+}
+

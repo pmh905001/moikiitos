@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+   <!-- directory to scan for repository classes -->
+   <jpa:repositories base-package="com.hyxc.moikiitos.repositories"/>
+
+   <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
+      <property name="entityManagerFactory" ref="entityManagerFactory"/>
+   </bean>
+
+   <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+      <property name="persistenceUnitName" value="jpa.moikiitos"/>
+      <property name="jpaVendorAdapter">
+         <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+            <property name="generateDdl" value="true"/>
+            <property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect"/>
+         </bean>
+      </property>
+      <property name="dataSource" ref="dataSource"/>
+   </bean>
+
+</beans>
